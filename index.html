@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>प्रो QR जनरेटर - मुफ्त ऑनलाइन QR कोड बनाएं</title>
+    <style>
+        :root {
+            --primary: #2e86de;
+            --secondary: #54a0ff;
+            --dark: #222f3e;
+            --light: #f5f6fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--dark);
+            margin-left: 10px;
+        }
+        
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .generator-box {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .color-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .preview-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 20px;
+        }
+        
+        #qrcode {
+            width: 250px;
+            height: 250px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ddd;
+            border-radius: 8px;
+        }
+        
+        .download-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .download-btn {
+            background: var(--light);
+            color: var(--dark);
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .download-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-qrcode"></i>
+                <span>प्रो QR जनरेटर</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main">
+            <div class="generator-box">
+                <h1><i class="fas fa-cog"></i> QR कोड कस्टमाइज़ करें</h1>
+                
+                <div class="input-group">
+                    <label for="qr-content">कंटेंट प्रकार</label>
+                    <select id="qr-type">
+                        <option value="url">URL/वेबसाइट</option>
+                        <option value="text">साधारण टेक्स्ट</option>
+                        <option value="email">ईमेल</option>
+                        <option value="phone">फोन नंबर</option>
+                        <option value="sms">SMS</option>
+                        <option value="wifi">WiFi नेटवर्क</option>
+                        <option value="vcard">विजिटिंग कार्ड</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="qr-content">कंटेंट दर्ज करें</label>
+                    <textarea id="qr-content" rows="3" placeholder="https://example.com"></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label for="qr-size">आकार (पिक्सेल में)</label>
+                    <input type="range" id="qr-size" min="100" max="2000" value="300">
+                    <div class="size-value" id="size-value">300px</div>
+                </div>
+                
+                <div class="input-group">
+                    <label>रंग</label>
+                    <div class="color-row">
+                        <div>
+                            <label for="qr-color">QR रंग</label>
+                            <input type="color" id="qr-color" value="#000000">
+                        </div>
+                        <div>
+                            <label for="qr-bg">पृष्ठभूमि रंग</label>
+                            <input type="color" id="qr-bg" value="#ffffff">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="qr-logo">लोगो जोड़ें (वैकल्पिक)</label>
+                    <input type="file" id="qr-logo" accept="image/*">
+                </div>
+                
+                <button class="btn" id="generate-btn">
+                    <i class="fas fa-qrcode"></i> QR कोड जनरेट करें
+                </button>
+            </div>
+            
+            <div class="preview-box">
+                <h1><i class="fas fa-eye"></i> प्रिव्यू</h1>
+                <div id="qrcode">
+                    <p>आपका QR कोड यहाँ दिखाई देगा</p>
+                </div>
+                
+                <div class="download-options">
+                    <div class="download-btn" data-format="png">
+                        <i class="fas fa-image"></i> PNG
+                    </div>
+                    <div class="download-btn" data-format="svg">
+                        <i class="fas fa-vector-square"></i> SVG
+                    </div>
+                    <div class="download-btn" data-format="pdf">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>तेज और आसान</h3>
+                <p>केवल कुछ सेकंड में हाई क्वालिटी QR कोड जनरेट करें</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>कस्टमाइज़ेशन</h3>
+                <p>रंग, आकार और डिज़ाइन को अपनी पसंद के अनुसार बदलें</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3>मल्टीफॉर्मेट</h3>
+                <p>PNG, SVG और PDF फॉर्मेट में डाउनलोड करें</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 प्रो QR जनरेटर. सर्वाधिकार सुरक्षित.</p>
+            <p>100% मुफ्त और हमेशा के लिए मुफ्त रहेगा</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // DOM Elements
+        const qrContent = document.getElementById('qr-content');
+        const qrType = document.getElementById('qr-type');
+        const qrSize = document.getElementById('qr-size');
+        const sizeValue = document.getElementById('size-value');
+        const qrColor = document.getElementById('qr-color');
+        const qrBg = document.getElementById('qr-bg');
+        const qrLogo = document.getElementById('qr-logo');
+        const generateBtn = document.getElementById('generate-btn');
+        const qrcodeDiv = document.getElementById('qrcode');
+        const downloadBtns = document.querySelectorAll('.download-btn');
+        
+        // Variables
+        let qrCode = null;
+        let logoImage = null;
+        
+        // Event Listeners
+        qrSize.addEventListener('input', updateSizeValue);
+        qrLogo.addEventListener('change', handleLogoUpload);
+        generateBtn.addEventListener('click', generateQRCode);
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', () => downloadQR(btn.dataset.format));
+        });
+        
+        // Update size value display
+        function updateSizeValue() {
+            sizeValue.textContent = `${qrSize.value}px`;
+        }
+        
+        // Handle logo upload
+        function handleLogoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    logoImage = new Image();
+                    logoImage.src = event.target.result;
+                    logoImage.onload = () => {
+                        if(qrCode) generateQRCode();
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Generate QR Code
+        function generateQRCode() {
+            const content = qrContent.value;
+            if (!content) {
+                alert('कृपया QR कोड के लिए कंटेंट दर्ज करें');
+                return;
+            }
+            
+            // Clear previous QR code
+            qrcodeDiv.innerHTML = '';
+            
+            // Generate new QR code
+            qrCode = new QRCode(qrcodeDiv, {
+                text: content,
+                width: parseInt(qrSize.value),
+                height: parseInt(qrSize.value),
+                colorDark: qrColor.value,
+                colorLight: qrBg.value,
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            // Add logo if uploaded
+            if(logoImage) {
+                setTimeout(() => {
+                    const canvas = qrcodeDiv.querySelector('canvas');
+                    if(canvas) {
+                        const ctx = canvas.getContext('2d');
+                        const logoSize = canvas.width * 0.2;
+                        const x = (canvas.width - logoSize) / 2;
+                        const y = (canvas.height - logoSize) / 2;
+                        
+                        ctx.drawImage(logoImage, x, y, logoSize, logoSize);
+                    }
+                }, 100);
+            }
+        }
+        
+        // Download QR Code
+        function downloadQR(format) {
+            if (!qrCode) {
+                alert('पहले QR कोड जनरेट करें');
+                return;
+            }
+            
+            const canvas = qrcodeDiv.querySelector('canvas');
+            const size = parseInt(qrSize.value);
+            
+            switch(format) {
+                case 'png':
+                    const pngLink = document.createElement('a');
+                    pngLink.download = 'qrcode.png';
+                    pngLink.href = canvas.toDataURL('image/png');
+                    pngLink.click();
+                    break;
+                    
+                case 'svg':
+                    const svgData = new XMLSerializer().serializeToString(
+                        qrcodeDiv.querySelector('svg')
+                    );
+                    const svgBlob = new Blob([svgData], {type: "image/svg+xml"});
+                    const svgUrl = URL.createObjectURL(svgBlob);
+                    const svgLink = document.createElement('a');
+                    svgLink.download = 'qrcode.svg';
+                    svgLink.href = svgUrl;
+                    svgLink.click();
+                    break;
+                    
+                case 'pdf':
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF();
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', 15, 15, 180, 180);
+                    pdf.save('qrcode.pdf');
+                    break;
+            }
+        }
+        
+        // Initialize
+        updateSizeValue();
+    </script>
+</body>
+</html>
