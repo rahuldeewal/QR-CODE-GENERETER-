@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rahuldeewal.github.io/QR-CODE-GENERETER-/sitemap.xml
